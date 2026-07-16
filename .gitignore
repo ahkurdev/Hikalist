@@ -1,0 +1,42 @@
+# Gradle and Kotlin
+.gradle/
+.kotlin/
+**/build/
+local.properties
+
+# IDEs and editors
+.idea/
+.vscode/
+*.iml
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+
+# Logs, databases, and runtime state
+*.log
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+hs_err_pid*
+replay_pid*
+
+# Generated installers and archives
+*.msi
+*.zip
+*.tar
+*.gz
+
+# Operating systems
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Agent-local files
+.claude/
+.superpowers/
+.agents/
