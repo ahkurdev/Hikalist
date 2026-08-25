@@ -34,7 +34,7 @@ class AppVersion(version: String) : Comparable<AppVersion> {
     override fun toString(): String = value
 
     companion object {
-        val CURRENT = AppVersion("1.0.2")
+        val CURRENT = AppVersion("1.0.3")
     }
 }
 
@@ -72,7 +72,7 @@ class UpdateChecker(
 }
 
 class GitHubReleaseSource(
-    private val repository: String = "Allan4u/Hikalist",
+    private val repository: String = "ahkurdev/Hikalist",
     private val client: HttpClient = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build(),
 ) : ReleaseSource {
     override suspend fun latest(): ReleaseInfo = withContext(Dispatchers.IO) {

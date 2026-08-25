@@ -12,7 +12,7 @@
   <a href="LICENSE"><img alt="License GPL-3.0" src="https://img.shields.io/badge/license-GPL--3.0-eba3b2"></a>
   <img alt="Platform Windows" src="https://img.shields.io/badge/platform-Windows-eba3b2">
   <img alt="Kotlin JVM 21" src="https://img.shields.io/badge/Kotlin-JVM%2021-eba3b2">
-  <img alt="Version 1.0.2" src="https://img.shields.io/badge/version-1.0.2-eba3b2">
+  <img alt="Version 1.0.2" src="https://img.shields.io/badge/version-1.0.3-eba3b2">
 </p>
 
 Hikalist adalah aplikasi musik desktop mandiri untuk Windows. Aplikasi ini menyediakan pencarian dan streaming musik, playlist lokal maupun kolaboratif, lirik tersinkronisasi, mode offline, integrasi Windows, dan Discord Rich Presence tanpa mengharuskan pengguna memasang VLC atau pemutar eksternal lain.
@@ -58,7 +58,7 @@ Hikalist adalah aplikasi musik desktop mandiri untuk Windows. Aplikasi ini menye
 ### Akun dan kolaborasi
 
 - Fitur lokal dapat digunakan tanpa login.
-- Login/register email melalui [web-hikalist-zeta.vercel.app](https://web-hikalist-zeta.vercel.app).
+- Login/register email melalui [hikalist.ahkur.my.id](https://hikalist.ahkur.my.id).
 - Profil, username, email, dan avatar pengguna.
 - Sinkronisasi playlist otomatis melalui Supabase saat koneksi internet tersedia.
 - Realtime update untuk metadata playlist, cover, anggota, urutan, dan lagu.

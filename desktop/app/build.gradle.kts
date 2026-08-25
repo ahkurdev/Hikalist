@@ -101,7 +101,7 @@ compose.desktop {
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Exe
             )
             packageName = "Hikalist"
-            packageVersion = "1.0.2"
+            packageVersion = "1.0.3"
             description = "A calm YouTube Music client for Windows"
             vendor = "Allan4u"
 
