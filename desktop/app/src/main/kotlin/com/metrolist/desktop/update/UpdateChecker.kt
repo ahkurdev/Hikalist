@@ -34,7 +34,7 @@ class AppVersion(version: String) : Comparable<AppVersion> {
     override fun toString(): String = value
 
     companion object {
-        val CURRENT = AppVersion("1.0.3")
+        val CURRENT = AppVersion("1.0.4")
     }
 }
 

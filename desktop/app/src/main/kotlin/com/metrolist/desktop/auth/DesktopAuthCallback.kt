@@ -5,6 +5,7 @@ import java.net.URLDecoder
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
+import java.util.Base64
 
 enum class DesktopAuthMode(val queryValue: String) {
     LOGIN("login"),
@@ -15,6 +16,14 @@ data class DesktopAuthTokens(
     val accessToken: String,
     val refreshToken: String,
 )
+
+fun DesktopAuthTokens.isIssuedBy(projectUrl: String): Boolean = runCatching {
+    val payloadPart = accessToken.split('.').getOrNull(1) ?: return@runCatching false
+    val payload = String(Base64.getUrlDecoder().decode(payloadPart), Charsets.UTF_8)
+    val issuer = Regex("\"iss\"\\s*:\\s*\"([^\"]+)\"").find(payload)?.groupValues?.get(1)
+        ?: return@runCatching false
+    issuer.startsWith(projectUrl)
+}.getOrDefault(false)
 
 object DesktopAuthCallbackParser {
     private const val MAX_CALLBACK_LENGTH = 16 * 1024

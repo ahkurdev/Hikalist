@@ -1,6 +1,7 @@
 package com.metrolist.desktop.auth
 
 import com.metrolist.desktop.sync.HikalistSupabase
+import com.metrolist.desktop.sync.HikalistSupabaseConfig
 import com.sun.net.httpserver.HttpExchange
 import com.sun.net.httpserver.HttpServer
 import io.github.jan.supabase.SupabaseClient
@@ -216,6 +217,13 @@ class DesktopAuthManager(
         val tokens = DesktopAuthCallbackParser.parse(bodyBytes.toString(Charsets.UTF_8), expectedState)
         if (tokens == null) {
             exchange.respond(400, "The callback request is invalid or expired.")
+            return
+        }
+        if (!tokens.isIssuedBy(HikalistSupabaseConfig.PROJECT_URL)) {
+            exchange.respond(
+                400,
+                "This web session belongs to a different Hikalist server. Refresh the web page and sign in again.",
+            )
             return
         }
         if (!callback.complete(AuthCallbackRequest(tokens, exchange))) {
