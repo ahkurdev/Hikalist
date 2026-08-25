@@ -70,7 +70,7 @@ class DesktopAuthManager(
     ),
     private val profileEditor: DesktopProfileEditor = DesktopProfileEditor(
         profiles = profiles,
-        avatarStore = SupabaseDesktopAvatarStore(client),
+        avatarStore = CloudinaryDesktopAvatarStore(),
     ),
     private val scope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO),
 ) {
@@ -260,7 +260,7 @@ class DesktopAuthManager(
     )
 
     private companion object {
-        const val DEFAULT_ACCOUNT_URL = "https://web-hikalist.vercel.app"
+        const val DEFAULT_ACCOUNT_URL = "https://web-hikalist-zeta.vercel.app"
         const val CALLBACK_PATH = "/auth/callback"
         const val MAX_CALLBACK_BYTES = 16 * 1024
         val AUTH_TIMEOUT = 5.minutes

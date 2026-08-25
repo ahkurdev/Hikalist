@@ -1,5 +1,6 @@
 package com.metrolist.desktop.auth
 
+import com.metrolist.desktop.storage.CloudinaryImageUploader
 import com.metrolist.desktop.sync.HikalistSupabase
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.from
@@ -126,7 +127,7 @@ interface DesktopAvatarStore {
 
 class DesktopProfileEditor(
     private val profiles: DesktopAccountProfileRepository = DesktopAccountProfileRepository(),
-    private val avatarStore: DesktopAvatarStore = SupabaseDesktopAvatarStore(),
+    private val avatarStore: DesktopAvatarStore = CloudinaryDesktopAvatarStore(),
 ) {
     suspend fun update(userId: String, username: String, avatarFile: File?): DesktopAccountProfile {
         val normalizedUsername = username.trim()
@@ -140,22 +141,13 @@ class DesktopProfileEditor(
     }
 }
 
-internal class SupabaseDesktopAvatarStore(
-    private val client: SupabaseClient = HikalistSupabase.client,
+internal class CloudinaryDesktopAvatarStore(
+    private val uploader: CloudinaryImageUploader = CloudinaryImageUploader(),
 ) : DesktopAvatarStore {
-    override suspend fun upload(userId: String, file: File): String {
-        require(file.isFile) { "Choose a valid avatar image" }
-        require(file.length() <= MAX_AVATAR_BYTES) { "Avatar must be 2 MB or smaller" }
-        val extension = file.extension.lowercase().let { if (it == "jpeg") "jpg" else it }
-        require(extension in AVATAR_EXTENSIONS) { "Avatar must be JPG, PNG, or WebP" }
-        val objectPath = "$userId/avatar.$extension"
-        client.storage[AVATAR_BUCKET].upload(objectPath, file.readBytes()) { upsert = true }
-        return client.storage[AVATAR_BUCKET].publicUrl(objectPath)
-    }
+    override suspend fun upload(userId: String, file: File): String =
+        uploader.upload(file, publicId = "$AVATAR_FOLDER/$userId").url
 
     private companion object {
-        const val AVATAR_BUCKET = "avatars"
-        const val MAX_AVATAR_BYTES = 2L * 1024L * 1024L
-        val AVATAR_EXTENSIONS = setOf("jpg", "png", "webp")
+        const val AVATAR_FOLDER = "hikalist/avatars"
     }
 }

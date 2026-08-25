@@ -2,6 +2,7 @@ package com.metrolist.desktop.sync
 
 import com.metrolist.desktop.auth.DesktopAccountProfileRepository
 import com.metrolist.desktop.auth.SupabaseDesktopProfileDataSource
+import com.metrolist.desktop.storage.CloudinaryImageUploader
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.auth.auth
 import io.github.jan.supabase.postgrest.from
@@ -13,7 +14,6 @@ import io.github.jan.supabase.realtime.postgresChangeFlow
 import io.github.jan.supabase.realtime.realtime
 import io.github.jan.supabase.storage.storage
 import java.io.File
-import java.security.MessageDigest
 import java.time.Instant
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -30,6 +30,7 @@ class SupabasePlaylistSyncRemote(
     private val profiles: DesktopAccountProfileRepository = DesktopAccountProfileRepository(
         SupabaseDesktopProfileDataSource(client),
     ),
+    private val coverUploader: CloudinaryImageUploader = CloudinaryImageUploader(),
 ) : PlaylistSyncRemote {
     private val realtimeScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
@@ -125,19 +126,16 @@ class SupabasePlaylistSyncRemote(
 
     private suspend fun pushPlaylist(operation: SyncOperation, identity: SyncIdentity) {
         val remotePlaylistId = LikedSongsSync.toRemotePlaylistId(operation.playlistId, identity.userId)
-        val previousCoverUrl = currentCoverUrl(remotePlaylistId)
         if (operation.action == SyncAction.DELETE) {
             client.from("hika_playlists").update(SupabaseTombstone(Instant.now().toString())) {
                 filter { eq("id", remotePlaylistId) }
             }
-            deleteOwnedCover(previousCoverUrl, identity)
             return
         }
         val payload = SyncPayloadCodec.decodePlaylist(operation.payload)
         val syncedCoverUrl = uploadCoverIfNeeded(
             coverUrl = payload.coverUrl,
             playlistId = remotePlaylistId,
-            identity = identity,
         )
         client.from("hika_playlists").upsert(
             SupabasePlaylist(
@@ -151,42 +149,15 @@ class SupabasePlaylistSyncRemote(
         ) {
             onConflict = "id"
         }
-        if (previousCoverUrl != syncedCoverUrl) deleteOwnedCover(previousCoverUrl, identity)
     }
 
-    private suspend fun currentCoverUrl(playlistId: String): String? =
-        client.from("hika_playlists").select(columns = Columns.list("cover_url")) {
-            filter { eq("id", playlistId) }
-            limit(1)
-        }.decodeList<SupabaseCover>().firstOrNull()?.coverUrl
-
-    private suspend fun deleteOwnedCover(coverUrl: String?, identity: SyncIdentity) {
-        val marker = "/storage/v1/object/public/$COVER_BUCKET/"
-        if (coverUrl.isNullOrBlank() || marker !in coverUrl) return
-        val objectPath = coverUrl.substringAfter(marker)
-        if (!objectPath.startsWith("${identity.userId}/")) return
-        client.storage[COVER_BUCKET].delete(objectPath)
-    }
-
-    private suspend fun uploadCoverIfNeeded(
-        coverUrl: String?,
-        playlistId: String,
-        identity: SyncIdentity,
-    ): String? {
+    private suspend fun uploadCoverIfNeeded(coverUrl: String?, playlistId: String): String? {
         if (coverUrl.isNullOrBlank() || coverUrl.startsWith("https://") || coverUrl.startsWith("http://")) {
             return coverUrl
         }
         val file = File(coverUrl)
         if (!file.isFile) return null
-        require(file.length() <= MAX_COVER_BYTES) { "Playlist cover must be 5 MB or smaller" }
-        val extension = file.extension.lowercase().let { if (it == "jpeg") "jpg" else it }
-        require(extension in COVER_EXTENSIONS) { "Playlist cover must be JPG, PNG, or WebP" }
-        val contentHash = file.sha256()
-        val objectPath = "${identity.userId}/$playlistId/$contentHash.$extension"
-        client.storage[COVER_BUCKET].upload(objectPath, file.readBytes()) {
-            upsert = true
-        }
-        return client.storage[COVER_BUCKET].publicUrl(objectPath)
+        return coverUploader.upload(file, publicId = "$COVER_FOLDER/$playlistId").url
     }
 
     private suspend fun pushSong(operation: SyncOperation, identity: SyncIdentity) {
@@ -223,33 +194,13 @@ class SupabasePlaylistSyncRemote(
 
     private companion object {
         const val PULL_LIMIT = 500L
-        const val COVER_BUCKET = "playlist-covers"
-        const val MAX_COVER_BYTES = 5L * 1024L * 1024L
-        val COVER_EXTENSIONS = setOf("jpg", "png", "webp")
+        const val COVER_FOLDER = "hikalist/covers"
     }
-}
-
-private fun File.sha256(): String {
-    val digest = MessageDigest.getInstance("SHA-256")
-    inputStream().buffered().use { input ->
-        val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
-        while (true) {
-            val count = input.read(buffer)
-            if (count < 0) break
-            digest.update(buffer, 0, count)
-        }
-    }
-    return digest.digest().joinToString("") { byte -> "%02x".format(byte) }
 }
 
 @Serializable
 private data class SupabaseTombstone(
     @SerialName("deleted_at") val deletedAt: String,
-)
-
-@Serializable
-private data class SupabaseCover(
-    @SerialName("cover_url") val coverUrl: String? = null,
 )
 
 @Serializable

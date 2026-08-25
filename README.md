@@ -58,7 +58,7 @@ Hikalist adalah aplikasi musik desktop mandiri untuk Windows. Aplikasi ini menye
 ### Akun dan kolaborasi
 
 - Fitur lokal dapat digunakan tanpa login.
-- Login/register email melalui [web-hikalist.vercel.app](https://web-hikalist.vercel.app).
+- Login/register email melalui [web-hikalist-zeta.vercel.app](https://web-hikalist-zeta.vercel.app).
 - Profil, username, email, dan avatar pengguna.
 - Sinkronisasi playlist otomatis melalui Supabase saat koneksi internet tersedia.
 - Realtime update untuk metadata playlist, cover, anggota, urutan, dan lagu.
@@ -207,9 +207,10 @@ Installer Hikalist bersifat per-user, membuat shortcut, mendukung pemilihan loka
 Build resmi memakai proyek Supabase Hikalist dan web account yang telah dikonfigurasi di source. Untuk deployment sendiri:
 
 1. Ganti project URL dan publishable key pada `HikalistSupabaseClient.kt`.
-2. Sediakan tabel, RLS policy, RPC invite, dan bucket avatar/cover yang kompatibel.
-3. Atur `HIKALIST_ACCOUNT_URL` jika web account tidak berada di URL default.
-4. Ganti Discord Application ID bila memakai aplikasi Discord sendiri.
+2. Jalankan migration di `supabase/migrations/` untuk menyiapkan tabel, RLS policy, dan RPC invite.
+3. Atur Cloudinary (cloud name + unsigned preset `HikalistCloudinaryConfig.kt`) untuk upload avatar dan cover playlist, maksimal 10 MB.
+4. Atur `HIKALIST_ACCOUNT_URL` jika web account tidak berada di URL default.
+5. Ganti Discord Application ID bila memakai aplikasi Discord sendiri.
 
 Client desktop hanya boleh membawa Supabase **publishable/anon key**. Jangan pernah memasukkan `service_role` key, password database, SMTP credential, access token pribadi, cookie, atau client secret ke repository.
 

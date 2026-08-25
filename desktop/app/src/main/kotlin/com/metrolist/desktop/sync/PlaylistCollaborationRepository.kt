@@ -65,7 +65,7 @@ class PlaylistCollaborationRepository(
     private val dataSource: PlaylistCollaborationDataSource = SupabasePlaylistCollaborationDataSource(),
     private val accountUrl: String = System.getenv("HIKALIST_ACCOUNT_URL")
         ?.takeIf(String::isNotBlank)
-        ?: "https://web-hikalist.vercel.app",
+        ?: "https://web-hikalist-zeta.vercel.app",
 ) {
     suspend fun access(playlistId: String, currentUserId: String): PlaylistCollaborationAccess {
         val ownerId = dataSource.ownerId(playlistId)
