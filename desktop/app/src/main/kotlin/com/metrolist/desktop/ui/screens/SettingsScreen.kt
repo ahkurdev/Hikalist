@@ -367,12 +367,20 @@ fun SettingsScreen(
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
-            Button(
-                onClick = onSyncNow,
-                enabled = account.status == DesktopAccountStatus.SIGNED_IN &&
-                    playlistSync.state != SyncConnectionState.SYNCING,
-            ) {
-                Text(if (playlistSync.state == SyncConnectionState.SYNCING) "Syncing…" else "Sync now")
+            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                if (account.status != DesktopAccountStatus.SIGNED_IN &&
+                    account.status != DesktopAccountStatus.INITIALIZING &&
+                    account.status != DesktopAccountStatus.WAITING_FOR_BROWSER
+                ) {
+                    Button(onClick = onLogin) { Text("Sign in") }
+                }
+                Button(
+                    onClick = onSyncNow,
+                    enabled = account.status == DesktopAccountStatus.SIGNED_IN &&
+                        playlistSync.state != SyncConnectionState.SYNCING,
+                ) {
+                    Text(if (playlistSync.state == SyncConnectionState.SYNCING) "Syncing…" else "Sync now")
+                }
             }
         }
         Spacer(Modifier.height(16.dp))
