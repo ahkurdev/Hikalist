@@ -12,10 +12,10 @@ import kotlin.time.Duration.Companion.seconds
 object HikalistSupabaseConfig {
     val PROJECT_URL = System.getenv("HIKALIST_SUPABASE_URL")
         ?.takeIf(String::isNotBlank)
-        ?: "https://menfessdarmajaya.my.id/hikalist"
+        ?: "https://api-hikalist.ahkur.my.id"
     val PUBLISHABLE_KEY = System.getenv("HIKALIST_SUPABASE_KEY")
         ?.takeIf(String::isNotBlank)
-        ?: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6Imh0dHBzOi8vbWVuZmVzc2Rhcm1hamF5YS5teS5pZC9oaWthbGlzdCIsImlhdCI6MTc5MTQwMDAwMCwiZXhwIjoyMTA2NzYwMDAwfQ.7H6sf6icSbkVL4jckeeh1mCWeYWMdNEcllcZ3V_ckBM"
+        ?: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6Imh0dHBzOi8vYXBpLWhpa2FsaXN0LmFoa3VyLm15LmlkIiwiaWF0IjoxNzkxNDAwMDAwLCJleHAiOjIxMDY3NjAwMDB9.Xg9wI1QPMGoOFp1ecXwJipbTkm_cwLdpS-aIEI0pD_o"
 }
 
 object HikalistSupabase {
