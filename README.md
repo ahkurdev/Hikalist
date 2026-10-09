@@ -12,7 +12,7 @@
   <a href="LICENSE"><img alt="License GPL-3.0" src="https://img.shields.io/badge/license-GPL--3.0-eba3b2"></a>
   <img alt="Platform Windows" src="https://img.shields.io/badge/platform-Windows-eba3b2">
   <img alt="Kotlin JVM 21" src="https://img.shields.io/badge/Kotlin-JVM%2021-eba3b2">
-  <img alt="Version 1.0.2" src="https://img.shields.io/badge/version-1.0.4-eba3b2">
+  <img alt="Version 1.0.5" src="https://img.shields.io/badge/version-1.0.5-eba3b2">
 </p>
 
 Hikalist adalah aplikasi musik desktop mandiri untuk Windows. Aplikasi ini menyediakan pencarian dan streaming musik, playlist lokal maupun kolaboratif, lirik tersinkronisasi, mode offline, integrasi Windows, dan Discord Rich Presence tanpa mengharuskan pengguna memasang VLC atau pemutar eksternal lain.
