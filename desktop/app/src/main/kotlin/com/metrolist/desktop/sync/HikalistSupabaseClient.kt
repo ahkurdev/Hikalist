@@ -10,8 +10,12 @@ import io.github.jan.supabase.storage.Storage
 import kotlin.time.Duration.Companion.seconds
 
 object HikalistSupabaseConfig {
-    const val PROJECT_URL = "https://elyasdvjbkyyyseyrljt.supabase.co"
-    const val PUBLISHABLE_KEY = "sb_publishable__BhgylsvXoPCm8c-IjY1Aw_EzmltYwK"
+    val PROJECT_URL = System.getenv("HIKALIST_SUPABASE_URL")
+        ?.takeIf(String::isNotBlank)
+        ?: "https://menfessdarmajaya.my.id/hikalist"
+    val PUBLISHABLE_KEY = System.getenv("HIKALIST_SUPABASE_KEY")
+        ?.takeIf(String::isNotBlank)
+        ?: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6Imh0dHBzOi8vbWVuZmVzc2Rhcm1hamF5YS5teS5pZC9oaWthbGlzdCIsImlhdCI6MTc5MTQwMDAwMCwiZXhwIjoyMTA2NzYwMDAwfQ.7H6sf6icSbkVL4jckeeh1mCWeYWMdNEcllcZ3V_ckBM"
 }
 
 object HikalistSupabase {

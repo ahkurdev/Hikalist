@@ -64,7 +64,7 @@ class PlaylistCollaborationRepositoryTest {
 
         val invite = repository.createEditorInviteLink("private playlist", "owner")
 
-        assertEquals("https://web-hikalist.vercel.app/invite?token=secret-token", invite.shareUrl)
+        assertEquals("https://hikalist.ahkur.my.id/invite?token=secret-token", invite.shareUrl)
         assertEquals(Instant.parse("2026-07-16T05:00:00Z"), invite.expiresAt)
         assertEquals(7_200, dataSource.lastInviteTtlSeconds)
         assertFalse(invite.shareUrl.contains("private playlist"))
