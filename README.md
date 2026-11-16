@@ -1,3 +1,5 @@
+Bahasa Indonesia version: [readme.id.md](readme.id.md)
+
 # Hikalist
 
 <p align="center">
@@ -5,7 +7,7 @@
 </p>
 
 <p align="center">
-  Pemutar musik desktop Windows yang tenang, lengkap, dan dibuat dengan Kotlin serta Compose Desktop.
+  A calm, complete Windows desktop music player, built with Kotlin and Compose Desktop.
 </p>
 
 <p align="center">
@@ -15,138 +17,138 @@
   <img alt="Version 1.0.5" src="https://img.shields.io/badge/version-1.0.5-eba3b2">
 </p>
 
-Hikalist adalah aplikasi musik desktop mandiri untuk Windows. Aplikasi ini menyediakan pencarian dan streaming musik, playlist lokal maupun kolaboratif, lirik tersinkronisasi, mode offline, integrasi Windows, dan Discord Rich Presence tanpa mengharuskan pengguna memasang VLC atau pemutar eksternal lain.
+Hikalist is a standalone desktop music app for Windows. It provides music search and streaming, local and collaborative playlists, synced lyrics, offline mode, Windows integration, and Discord Rich Presence without requiring users to install VLC or any other external player.
 
-> Repository ini khusus Hikalist Desktop. Untuk proyek Android, kunjungi [metrolistgroup/metrolist](https://github.com/metrolistgroup/metrolist).
+> This repository is for Hikalist Desktop only. For the Android project, visit [metrolistgroup/metrolist](https://github.com/metrolistgroup/metrolist).
 
-## Fitur utama
+## Key features
 
-### Penemuan musik
+### Music discovery
 
-- Home yang dipersonalisasi dari pencarian dan kebiasaan dengar lokal.
-- Pencarian lagu, album, artis, video, dan playlist.
-- Halaman detail album, artis, serta playlist dengan carousel yang dapat digeser.
-- Riwayat pemutaran, library, dan Liked Songs.
+- Personalised Home based on local search and listening habits.
+- Search for songs, albums, artists, videos, and playlists.
+- Album, artist, and playlist detail pages with swipeable carousels.
+- Play history, library, and Liked Songs.
 
-### Pemutar
+### Player
 
-- Streaming audio tanpa VLC atau instalasi aplikasi tambahan.
-- Play, pause, previous, next, shuffle, repeat one, dan repeat all.
-- Antrean berulang: lagu terakhir kembali ke lagu pertama ketika repeat all aktif.
-- Seek, progress bar, durasi, volume beserta persentase, dan pilihan audio output.
-- Kualitas audio Auto, High, dan Data Saver.
-- Equalizer 10-band dengan preset dan gain kustom.
-- Sleep timer serta pemulihan antrean/sesi setelah aplikasi dibuka kembali.
-- Penanganan kegagalan stream dan perpindahan lagu tanpa meninggalkan status pemutaran lama.
+- Audio streaming without VLC or installing additional apps.
+- Play, pause, previous, next, shuffle, repeat one, and repeat all.
+- Looping queue: the last song returns to the first song when repeat all is active.
+- Seek, progress bar, duration, volume with percentage, and audio output selection.
+- Audio quality Auto, High, and Data Saver.
+- 10-band equalizer with presets and custom gain.
+- Sleep timer and queue/session restore after the app is reopened.
+- Stream failure handling and track switching without leaving stale playback state.
 
-### Lirik
+### Lyrics
 
-- Lirik biasa, tersinkronisasi per baris, dan format word-timed.
-- Resolver multi-provider dengan cache lokal dan fallback.
-- Transisi halus, fokus pada baris aktif, serta indikator sebelum lirik pertama dimulai.
-- Sanitasi metadata mentah agar tag timing/provider tidak tampil sebagai teks.
-- Lirik yang sudah diunduh tetap tersedia saat offline.
+- Plain, line-synced, and word-timed lyrics.
+- Multi-provider resolver with local cache and fallback.
+- Smooth transitions, focus on the active line, and an indicator before the first lyric starts.
+- Raw metadata sanitisation so timing/provider tags don't show as text.
+- Downloaded lyrics remain available offline.
 
-### Playlist dan library
+### Playlists and library
 
-- Playlist lokal dengan nama, deskripsi, cover, urutan lagu, dan kolom **Ditambahkan oleh**.
-- Liked Songs diperlakukan sebagai playlist, bukan tombol yang langsung memainkan satu lagu.
-- Tambah lagu, hapus lagu, susun ulang, dan putar seluruh playlist.
-- Edit atau hapus playlist melalui menu konteks.
-- Cover playlist tersimpan secara efisien di penyimpanan lokal atau Supabase Storage untuk playlist tersinkronisasi.
+- Local playlists with name, description, cover, song order, and an **Added by** column.
+- Liked Songs is treated as a playlist, not a button that plays a single song directly.
+- Add songs, remove songs, reorder, and play the whole playlist.
+- Edit or delete playlists via the context menu.
+- Playlist covers are stored efficiently in local storage or Supabase Storage for synced playlists.
 
-### Akun dan kolaborasi
+### Accounts and collaboration
 
-- Fitur lokal dapat digunakan tanpa login.
-- Login/register email melalui [hikalist.ahkur.my.id](https://hikalist.ahkur.my.id).
-- Profil, username, email, dan avatar pengguna.
-- Sinkronisasi playlist otomatis melalui Supabase saat koneksi internet tersedia.
-- Realtime update untuk metadata playlist, cover, anggota, urutan, dan lagu.
-- Peran owner dan editor: editor dapat menambah, menghapus, serta mengurutkan lagu; owner tetap mengelola detail playlist dan anggota.
-- Undangan editor melalui username atau link yang kedaluwarsa setelah dua jam.
-- Perubahan offline disimpan lokal dan dikirim kembali ketika koneksi pulih.
+- Local features can be used without logging in.
+- Email login/register via [hikalist.ahkur.my.id](https://hikalist.ahkur.my.id).
+- User profile, username, email, and avatar.
+- Automatic playlist sync via Supabase when an internet connection is available.
+- Realtime updates for playlist metadata, covers, members, order, and songs.
+- Owner and editor roles: editors can add, remove, and reorder songs; the owner still manages playlist details and members.
+- Editor invitations via username or a link that expires after two hours.
+- Offline changes are stored locally and sent again when the connection recovers.
 
-### Import Spotify
+### Spotify import
 
-- Import dari kumpulan link track Spotify tanpa Spotify Web API atau akun Premium.
-- Input dapat ditempel langsung atau dibaca dari berkas `.txt`.
-- Hikalist mencocokkan judul/artis ke katalog musik, lalu membuat playlist dengan nama dan deskripsi pilihan pengguna.
-- Import tidak bergantung pada token Spotify sementara.
+- Import from a set of Spotify track links without the Spotify Web API or a Premium account.
+- Input can be pasted directly or read from a `.txt` file.
+- Hikalist matches title/artist to the music catalogue, then creates a playlist with the user's chosen name and description.
+- Import does not rely on temporary Spotify tokens.
 
-### Mode offline
+### Offline mode
 
-- Download satu lagu atau seluruh playlist.
-- Audio, cover, metadata, dan lirik disimpan bersama untuk pemutaran offline.
-- Antrean download, progress, pembatalan, retry, dan penghapusan media lokal.
-- FFmpeg dibundel bersama aplikasi; pengguna tidak perlu menginstalnya secara terpisah.
+- Download a single song or an entire playlist.
+- Audio, cover, metadata, and lyrics are stored together for offline playback.
+- Download queue, progress, cancellation, retry, and local media deletion.
+- FFmpeg is bundled with the app; users don't need to install it separately.
 
-### Integrasi desktop
+### Desktop integration
 
-- Custom title bar yang menyatu dengan UI, lengkap dengan minimize, maximize/restore, dan close.
-- Resize window serta mode maximized tanpa menutupi taskbar Windows.
-- Windows System Media Transport Controls dan dukungan tombol media keyboard.
-- Discord Rich Presence otomatis mengikuti lagu, artis, artwork, posisi, pause, pergantian lagu, dan aplikasi ditutup.
-- Pemeriksaan pembaruan aplikasi.
+- Custom title bar that blends with the UI, complete with minimize, maximize/restore, and close.
+- Window resize and maximized mode without covering the Windows taskbar.
+- Windows System Media Transport Controls and keyboard media button support.
+- Discord Rich Presence automatically follows the song, artist, artwork, position, pause, track changes, and when the app closes.
+- App update checks.
 
-## Teknologi
+## Technologies
 
 - Kotlin/JVM 21
 - Compose Multiplatform Desktop
-- JavaFX Media dan FFmpeg
+- JavaFX Media and FFmpeg
 - Ktor + OkHttp
 - SQLite + JetBrains Exposed
-- Supabase Auth, PostgREST, Realtime, dan Storage
+- Supabase Auth, PostgREST, Realtime, and Storage
 - Koin
 - Coil
 - JUnit 4
 
-## Struktur repository
+## Repository structure
 
 ```text
 Hikalist/
-├── desktop/app/        # Aplikasi Compose Desktop, UI, player, sync, dan test
-├── innertube/          # Akses katalog dan metadata musik
-├── betterlyrics/       # Provider lirik
-├── kugou/              # Provider lirik/metadata KuGou
-├── lastfm/             # Integrasi metadata Last.fm
-├── lrclib/             # Provider LRCLIB
-├── paxsenix/           # Provider lirik tambahan
-├── shazamkit/          # Pencarian metadata Shazam
-├── gradle/             # Version catalog dan Gradle wrapper
+├── desktop/app/        # Compose Desktop app, UI, player, sync, and tests
+├── innertube/          # Music catalogue and metadata access
+├── betterlyrics/       # Lyrics provider
+├── kugou/              # KuGou lyrics/metadata provider
+├── lastfm/             # Last.fm metadata integration
+├── lrclib/             # LRCLIB provider
+├── paxsenix/           # Additional lyrics provider
+├── shazamkit/          # Shazam metadata search
+├── gradle/             # Version catalog and Gradle wrapper
 ├── build.gradle.kts
 └── settings.gradle.kts
 ```
 
-Kode aplikasi utama berada di `desktop/app/src/main/kotlin/com/metrolist/desktop`:
+The main app code is in `desktop/app/src/main/kotlin/com/metrolist/desktop`:
 
 ```text
-auth/             akun, callback browser, profil, dan avatar
-db/               SQLite schema dan repository
+auth/             account, browser callback, profile, and avatar
+db/               SQLite schema and repository
 discord/          Discord IPC/Rich Presence
-lyrics/           resolver, parser, dan cache lirik
-offline/          download serta media offline
-personalization/  rekomendasi Home lokal
-player/           playback, queue, seek, kualitas, equalizer, sleep timer
-playlist/         cover dan metadata playlist
-spotify/          parser dan import link Spotify
-storage/          pengelolaan lokasi data pengguna
-sync/             Supabase, realtime, kolaborasi, dan offline-first sync
+lyrics/           lyric resolver, parser, and cache
+offline/          downloads and offline media
+personalization/  local Home recommendations
+player/           playback, queue, seek, quality, equalizer, sleep timer
+playlist/         playlist cover and metadata
+spotify/          Spotify link parser and import
+storage/          user data location management
+sync/             Supabase, realtime, collaboration, and offline-first sync
 ui/               Compose Desktop UI
-update/           pemeriksaan versi
-window/           custom title bar dan resize window
+update/           version checks
+window/           custom title bar and window resize
 windows/          Windows media session
 ```
 
-## Persyaratan pengembangan
+## Development requirements
 
 - Windows 10/11 64-bit.
 - JDK 21.
-- PowerShell 5.1 atau lebih baru.
-- Koneksi internet pada build pertama untuk mengambil dependency Gradle/Maven.
+- PowerShell 5.1 or newer.
+- Internet connection on the first build to fetch Gradle/Maven dependencies.
 
-Runtime Java dan FFmpeg sudah dibundel ke installer hasil build. Pengguna akhir tidak perlu memasang JDK, VLC, atau FFmpeg.
+The Java runtime and FFmpeg are already bundled into the built installer. End users don't need to install the JDK, VLC, or FFmpeg.
 
-## Menjalankan dari source
+## Running from source
 
 ```powershell
 git clone https://github.com/Allan4u/Hikalist.git
@@ -154,45 +156,45 @@ cd Hikalist
 .\gradlew.bat :desktop:app:run
 ```
 
-Jika `ffmpeg.exe` belum tersedia di resource setelah clone, jalankan:
+If `ffmpeg.exe` is not yet available in the resources after cloning, run:
 
 ```powershell
 .\download_ffmpeg.bat
 ```
 
-## Test
+## Tests
 
-Menjalankan seluruh unit test desktop:
+Run all desktop unit tests:
 
 ```powershell
 .\gradlew.bat :desktop:app:test
 ```
 
-Test mencakup queue, seek, stream policy, equalizer, session restore, download offline, lirik, Spotify import, sinkronisasi Supabase, kolaborasi, Discord RPC, media controls, update checker, serta geometri window.
+Tests cover queue, seek, stream policy, equalizer, session restore, offline downloads, lyrics, Spotify import, Supabase sync, collaboration, Discord RPC, media controls, update checker, and window geometry.
 
-Beberapa probe jaringan bersifat opsional dan memerlukan koneksi serta layanan eksternal yang tersedia.
+Some network probes are optional and require an available connection and external services.
 
-## Build aplikasi dan installer
+## Building the app and installer
 
-Membuat folder aplikasi portabel dengan runtime Java:
+Create a portable app folder with the Java runtime:
 
 ```powershell
 .\gradlew.bat :desktop:app:createDistributable
 ```
 
-Membuat installer Windows `.exe`:
+Create a Windows `.exe` installer:
 
 ```powershell
 .\gradlew.bat :desktop:app:packageExe
 ```
 
-Membuat installer Windows `.msi`:
+Create a Windows `.msi` installer:
 
 ```powershell
 .\gradlew.bat :desktop:app:packageMsi
 ```
 
-Hasilnya berada di:
+The results are in:
 
 ```text
 desktop/app/build/compose/binaries/main/app/
@@ -200,51 +202,51 @@ desktop/app/build/compose/binaries/main/exe/
 desktop/app/build/compose/binaries/main/msi/
 ```
 
-Installer Hikalist bersifat per-user, membuat shortcut, mendukung pemilihan lokasi instalasi, dan membawa runtime Java beserta modul yang diperlukan aplikasi.
+The Hikalist installer is per-user, creates a shortcut, supports choosing the install location, and bundles the Java runtime with the modules the app needs.
 
-## Konfigurasi layanan
+## Service configuration
 
-Build resmi memakai proyek Supabase Hikalist dan web account yang telah dikonfigurasi di source. Untuk deployment sendiri:
+The official build uses the configured Hikalist Supabase project and web account in the source. For your own deployment:
 
-1. Ganti project URL dan publishable key pada `HikalistSupabaseClient.kt`.
-2. Jalankan migration di `supabase/migrations/` untuk menyiapkan tabel, RLS policy, dan RPC invite.
-3. Atur Cloudinary (cloud name + unsigned preset `HikalistCloudinaryConfig.kt`) untuk upload avatar dan cover playlist, maksimal 10 MB.
-4. Atur `HIKALIST_ACCOUNT_URL` jika web account tidak berada di URL default.
-5. Ganti Discord Application ID bila memakai aplikasi Discord sendiri.
+1. Change the project URL and publishable key in `HikalistSupabaseClient.kt`.
+2. Run the migrations in `supabase/migrations/` to set up the tables, RLS policies, and invite RPC.
+3. Set up Cloudinary (cloud name + unsigned preset `HikalistCloudinaryConfig.kt`) for avatar and playlist cover uploads, max 10 MB.
+4. Set `HIKALIST_ACCOUNT_URL` if the web account is not at the default URL.
+5. Change the Discord Application ID if using your own Discord application.
 
-Client desktop hanya boleh membawa Supabase **publishable/anon key**. Jangan pernah memasukkan `service_role` key, password database, SMTP credential, access token pribadi, cookie, atau client secret ke repository.
+The desktop client must only carry the Supabase **publishable/anon key**. Never put a `service_role` key, database password, SMTP credential, personal access token, cookie, or client secret in the repository.
 
-## Data dan privasi
+## Data and privacy
 
-- Database, playlist lokal, history, preferensi, cache, dan download disimpan di direktori data pengguna Windows.
-- Akun hanya diperlukan untuk profil, sinkronisasi, dan kolaborasi.
-- Supabase RLS membatasi data cloud sesuai akun serta keanggotaan playlist.
-- Hikalist menghubungi layanan katalog, artwork, lirik, dan metadata hanya untuk menyediakan fitur aplikasi.
+- Database, local playlists, history, preferences, cache, and downloads are stored in the Windows user data directory.
+- An account is only needed for profile, sync, and collaboration.
+- Supabase RLS restricts cloud data by account and playlist membership.
+- Hikalist contacts catalogue, artwork, lyrics, and metadata services only to provide the app's features.
 
 ## Troubleshooting
 
-- **`javax/naming/NamingException` atau `Failed to launch JVM`:** gunakan installer 1.0.2 atau yang lebih baru; runtime tersebut sudah menyertakan modul `java.naming`.
-- **Audio tidak keluar:** periksa output audio di Settings, lalu coba kualitas Auto.
-- **Seek berhenti:** coba ulang setelah koneksi stabil; player akan me-resolve stream bila URL lama kedaluwarsa.
-- **Lirik kosong:** buka ulang panel lirik agar resolver mencoba cache dan provider fallback.
-- **Discord tidak berubah:** pastikan Discord Desktop berjalan dan Rich Presence aktif di Settings.
-- **Sinkronisasi tertunda:** perubahan tetap berada di antrean lokal dan akan dikirim saat internet serta sesi login tersedia.
-- **Build gagal menemukan Java:** pastikan `java -version` menunjukkan JDK 21.
+- **`javax/naming/NamingException` or `Failed to launch JVM`:** use installer 1.0.2 or newer; that runtime already includes the `java.naming` module.
+- **No audio output:** check the audio output in Settings, then try Auto quality.
+- **Seek stops:** try again after the connection stabilises; the player will re-resolve the stream when the old URL expires.
+- **Empty lyrics:** reopen the lyrics panel so the resolver tries the cache and provider fallback.
+- **Discord doesn't change:** make sure Discord Desktop is running and Rich Presence is enabled in Settings.
+- **Sync delayed:** changes stay in the local queue and will be sent when internet and a login session are available.
+- **Build can't find Java:** make sure `java -version` shows JDK 21.
 
-## Pembuat
+## Author
 
-Hikalist Desktop dikembangkan dan dipelihara oleh [Allan4u](https://github.com/Allan4u).
+Hikalist Desktop is developed and maintained by [Allan4u](https://github.com/Allan4u).
 
-## Atribusi
+## Attribution
 
-Hikalist Desktop dikembangkan dari pekerjaan dan layanan JVM yang berasal dari ekosistem [Metrolist](https://github.com/metrolistgroup/metrolist). Metrolist tetap merupakan proyek Android terpisah; repository ini tidak menyatakan dukungan resmi dari tim Metrolist.
+Hikalist Desktop is developed from JVM work and services originating from the [Metrolist](https://github.com/metrolistgroup/metrolist) ecosystem. Metrolist remains a separate Android project; this repository does not claim official support from the Metrolist team.
 
-FFmpeg untuk Windows disediakan oleh [Gyan Doshi](https://www.gyan.dev/ffmpeg/builds/). Library pihak ketiga lain tercantum dalam Gradle version catalog dan mengikuti lisensinya masing-masing.
+FFmpeg for Windows is provided by [Gyan Doshi](https://www.gyan.dev/ffmpeg/builds/). Other third-party libraries are listed in the Gradle version catalog and follow their respective licenses.
 
-## Lisensi
+## License
 
-Hikalist didistribusikan di bawah [GNU General Public License v3.0](LICENSE). Distribusi ulang dan karya turunan harus mematuhi GPL-3.0 serta lisensi dependency yang digunakan.
+Hikalist is distributed under the [GNU General Public License v3.0](LICENSE). Redistribution and derivative works must comply with GPL-3.0 and the licenses of the dependencies used.
 
-## Catatan penggunaan
+## Usage notes
 
-Hikalist adalah client tidak resmi. Pengguna bertanggung jawab memastikan penggunaan media, metadata, dan layanan pihak ketiga mematuhi ketentuan layanan serta hukum yang berlaku di wilayah masing-masing.
+Hikalist is an unofficial client. Users are responsible for ensuring their use of media, metadata, and third-party services complies with the terms of service and laws applicable in their region.
